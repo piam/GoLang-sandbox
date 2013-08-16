@@ -37,7 +37,7 @@ func is_prime(n int) bool {
 func Sieve(w http.ResponseWriter, r *http.Request){
 	
 	var size int
-	size = 100
+	size = 100000
 	
 	list_numbers := init_slice(size)
 	
