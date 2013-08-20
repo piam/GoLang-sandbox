@@ -20,7 +20,6 @@ func init() {
 func init_slice(size int) ([]int){
 	int_slice:= make([]int, size)
 	
-	//Range form of for loop does not make sense to me, is this how I use it?
 	for i:= range int_slice {
 		int_slice[i] = i+2
 	}
@@ -37,9 +36,30 @@ func is_prime(n int) bool {
 func Sieve(w http.ResponseWriter, r *http.Request){
 	
 	var size int
-	size = 100000
+	size = 100
 	
-	list_numbers := init_slice(size)
+	list_numbers := init_slice(size)	
+	list_booleans := make([]bool, size)
+	
+	
+	
+	//iterate though a list of bools, using index as the value
+	for i:=2; i<(len(list_booleans)); i++ {
+		if list_booleans[i] == false{
+			fmt.Fprintln(w, i)
+		}
+		//Anything marked true should be prime as they have no factors
+		if list_booleans[i] == false{
+			//remove all susequent factors for this number
+			for j:=i+i; j<len(list_booleans); j+=i{
+				//anything marked true has been ruled out as a prime!
+				list_booleans[j] = true
+			}
+		}
+	}
+	
+	//anything marked false is prime
+	fmt.Fprintln(w, list_booleans)
 	
 	//iterate through 1/2 our list of numbers
 	for i:=0; i<(len(list_numbers)/2); i++ {
